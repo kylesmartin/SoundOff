@@ -20,12 +20,15 @@ import GameStateScreen from './src/screens/GameStateScreen';
 import MenuScreen from './src/screens/MenuScreen';
 import CreateRoomScreen from './src/screens/CreateRoomScreen';
 import JoinRoomScreen from './src/screens/JoinRoomScreen';
-import SigninScreen from './src/screens/SigninScreen';
+import SignInScreen from './src/screens/SignInScreen';
 
 const switchNavigator = createSwitchNavigator({
   
+  // Setting default screen as Sign in screen
+  Signin: SignInScreen,
+  
   loginFlow: createSwitchNavigator({
-    Signin: SigninScreen,
+    Signin: SignInScreen,
 
     menuFlow: createStackNavigator({
       Menu: MenuScreen,
