@@ -22,20 +22,28 @@ import CreateRoomScreen from './src/screens/CreateRoomScreen';
 import JoinRoomScreen from './src/screens/JoinRoomScreen';
 import SignInScreen from './src/screens/SignInScreen';
 
+import { Provider as AuthProvider } from './src/context/AuthContext';
+import { setNavigator } from './src/navigationRef';
+
 const switchNavigator = createSwitchNavigator({
-  
-  // Setting default screen as Sign in screen
-  Signin: SignInScreen,
   
   loginFlow: createSwitchNavigator({
     Signin: SignInScreen,
-
     menuFlow: createStackNavigator({
       Menu: MenuScreen,
       CreateRoom: CreateRoomScreen,
       JoinRoom: JoinRoomScreen
+    },{
+      initialRouteName: 'Menu',
+      defaultNavigationOptions: {
+        title: 'Sound Off'
+      }
     })
-
+  },{
+    initialRouteName: 'Signin',
+    defaultNavigationOptions: {
+      title: 'Sound Off'
+    }
   }),
 
   mainFlow: createSwitchNavigator({
@@ -48,14 +56,30 @@ const switchNavigator = createSwitchNavigator({
     SongShow: SongShowScreen,
     Voting: VotingScreen,
     GameState: GameStateScreen
+  },{
+    initialRouteName: 'PlayerWait',
+    defaultNavigationOptions: {
+      title: 'Sound Off'
+    }
   })
 
+},{
+  initialRouteName: 'loginFlow',
+  defaultNavigationOptions: {
+    title: 'Sound Off'
+  }
 }); 
 
 const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <App/>
+    <AuthProvider>
+      <App 
+        ref={navigator => {
+          setNavigator(navigator);
+        }}
+      />
+    </AuthProvider>
   );
 };
