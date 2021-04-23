@@ -23,7 +23,9 @@ import JoinRoomScreen from './src/screens/JoinRoomScreen';
 import SignInScreen from './src/screens/SignInScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
+import { Context as AuthContext } from './src/context/AuthContext';
 import { setNavigator } from './src/navigationRef';
+
 
 const switchNavigator = createSwitchNavigator({
   
@@ -70,7 +72,9 @@ const switchNavigator = createSwitchNavigator({
   }
 }); 
 
+
 const App = createAppContainer(switchNavigator);
+
 
 export default () => {
   return (
