@@ -34,6 +34,11 @@ const MenuScreen = ({navigation}) => {
                     onPress={() => navigation.navigate('JoinRoom')}
                 />
                 <Spacer/>
+                <Button 
+                    title="Song Search Demo"
+                    onPress={() => navigation.navigate('SongSearch')}
+                />
+                <Spacer/>
             </View>
         </View>
     )
