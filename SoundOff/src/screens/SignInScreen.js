@@ -5,7 +5,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 
 const SignInScreen = ({navigation}) => { 
     const {
-        state: {accessToken, refreshToken, permissionRequired},
+        state: {accessToken, permissionRequired},
         login,
         checkWebViewResponse
     } = useContext(AuthContext);
@@ -21,7 +21,7 @@ const SignInScreen = ({navigation}) => {
         ? null
         : permissionRequired ? <WebView 
             source={{
-                uri: 'http://28cd19499d99.ngrok.io/login'
+                uri: 'https://9ee453f0ac61.ngrok.io/login'
             }}
             onNavigationStateChange={(state) => {
                 checkWebViewResponse(state)

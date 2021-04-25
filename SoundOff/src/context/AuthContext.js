@@ -43,7 +43,6 @@ const refreshAccessToken = dispatch => async (refresh_token) => {
       '/refresh_token',
       { params: { refresh_token } }
     );
-    console.log(response.data.access_token)
     dispatch({ type: 'refresh_token', payload: response.data.access_token })
   }
 };
