@@ -21,7 +21,7 @@ const SignInScreen = ({navigation}) => {
         ? null
         : permissionRequired ? <WebView 
             source={{
-                uri: 'https://9ee453f0ac61.ngrok.io/login'
+                uri: 'http://2bd9901af5ca.ngrok.io/login'
             }}
             onNavigationStateChange={(state) => {
                 checkWebViewResponse(state)
