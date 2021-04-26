@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, FlatList} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
 import Spacer from '../components/Spacer';
+import SongDisplay from '../components/SongDisplay';
 
 const SongSearchScreen = ({navigation}) => { 
 
@@ -28,7 +29,7 @@ const SongSearchScreen = ({navigation}) => {
                 keyExtractor={result => result.id}
                 renderItem={({ item }) => {
                     return (
-                        <Text>{item.name}</Text>
+                        <SongDisplay track={item}/>
                     );
                 }}
             />
