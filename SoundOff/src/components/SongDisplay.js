@@ -1,27 +1,21 @@
-import React from 'react'; 
-import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
-import { Audio } from 'expo-av';
+import React, { useContext } from 'react'; 
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { Context as SoundContext } from '../context/SoundContext';
 
 const SongDisplay = ({ track }) => {
-    console.log(track.preview_url)
+
+    const {
+        setSong
+    } = useContext(SoundContext);
+
     return (
         <>
-        {track.preview_url == null
-            ? null
-            : <TouchableOpacity onPress={async () => {
-                url = track.preview_url
-                const { sound } = await Audio.Sound.createAsync(
-                    { uri: url },
-                    { shouldPlay: true }
-                );
-                await sound.playAsync(); 
-            }}>
+            <TouchableOpacity onPress={() => { setSong(track) }}>
                 <View style={styles.container}>
                     <Image style={styles.image} source={{ uri: track.album.images[0].url }} />
                     <Text>{track.name}</Text>
                 </View>
             </TouchableOpacity>
-        }
         </>
     );
 };

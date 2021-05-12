@@ -10,8 +10,6 @@ const SongSearchScreen = ({navigation}) => {
     const [term, setTerm] = useState('');
     const [searchApi, results, errorMessage] = useResults();
 
-    console.log(results);
-
     return (
         <View>
             <Spacer/>
