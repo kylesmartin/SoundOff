@@ -23,7 +23,7 @@ import JoinRoomScreen from './src/screens/JoinRoomScreen';
 import SignInScreen from './src/screens/SignInScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
-import { Context as AuthContext } from './src/context/AuthContext';
+import { Provider as SoundProvider } from './src/context/SoundContext';
 import { setNavigator } from './src/navigationRef';
 
 
@@ -78,6 +78,7 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
+    <SoundProvider>
     <AuthProvider>
       <App 
         ref={navigator => {
@@ -85,5 +86,6 @@ export default () => {
         }}
       />
     </AuthProvider>
+    </SoundProvider>
   );
 };
