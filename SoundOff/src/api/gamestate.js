@@ -1,40 +1,44 @@
 import axios from 'axios';
 
 const gamestate = axios.create({
-    baseURL: 'https://a9e33ebc41cf.ngrok.io'
+    baseURL: 'https://5f4f401e8dde.ngrok.io'
 });
 
-const roomGet = async (roomID, roomKey) => {
-    
+const signIn = async (email, password) => {
+
     const token = await gamestate.post(
 
         '/signin',
 
         {
+            "email": email,
+            "password": password
+        },
+
+        {
             headers: {
                 'Content-Type': 'application/json'
-            },
-
-            body: {
-                "email": "test@test.com",
-                "password": "mypassword"
             }
         }
     )
+    return token
+}
+
+const roomGet = async (roomID, roomKey, token) => {
 
     const response = await gamestate.get(
 
         '/room',
 
+        {
+            'roomID': roomID,
+            'roomKey': roomKey
+        },
+
         { 
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token,
-            },
-
-            body: {
-                'roomID': roomID,
-                'roomKey': roomKey
             }
         }
     )
@@ -42,26 +46,10 @@ const roomGet = async (roomID, roomKey) => {
     return response.data
 }
 
-const roomPost = async (roomID, randomKey) => {
-    
-    const token = await gamestate.post(
-
-        '/signin',
-
-        {
-            "email": "test@test.com",
-            "password": "mypassword"
-        },
-        
-        {
-            headers: 
-            {
-                'Content-Type': 'application/json'
-            }
-        }
-    )
+const roomPost = async (roomID, randomKey, token) => {
 
     const response = await gamestate.post(
+        
         '/room',
 
         {
@@ -78,7 +66,7 @@ const roomPost = async (roomID, randomKey) => {
         { 
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token.data.token,
+                'Authorization': 'Bearer ' + token,
             }
             
         }
@@ -88,4 +76,4 @@ const roomPost = async (roomID, randomKey) => {
 
 }
 
-export { roomGet, roomPost }
+export { signIn, roomGet, roomPost }

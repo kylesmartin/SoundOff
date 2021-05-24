@@ -21,6 +21,7 @@ import MenuScreen from './src/screens/MenuScreen';
 import CreateRoomScreen from './src/screens/CreateRoomScreen';
 import JoinRoomScreen from './src/screens/JoinRoomScreen';
 import SignInScreen from './src/screens/SignInScreen';
+import EntryScreen from './src/screens/EntryScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as SoundProvider } from './src/context/SoundContext';
@@ -30,6 +31,7 @@ import { setNavigator } from './src/navigationRef';
 const switchNavigator = createSwitchNavigator({
   
   loginFlow: createSwitchNavigator({
+    Entry: EntryScreen,
     Signin: SignInScreen,
     menuFlow: createStackNavigator({
       Menu: MenuScreen,
@@ -42,7 +44,7 @@ const switchNavigator = createSwitchNavigator({
       }
     })
   },{
-    initialRouteName: 'Signin',
+    initialRouteName: 'Entry',
     defaultNavigationOptions: {
       title: 'Sound Off'
     }

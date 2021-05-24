@@ -1,13 +1,16 @@
 import createDataContext from './createDataContext';
 import server from '../api/server';
 import { navigate } from '../navigationRef';
+import {signIn} from '../api/gamestate';
 
 const authReducer = (state, action) => {
     switch (action.type) {
+        case 'signin':
+            return { ...state, userToken: action.payload };
         case 'login':
-            return { accessToken: action.payload.access_token, refreshToken: action.payload.refresh_token, permissionRequired: false };
+            return { ...state, accessToken: action.payload.access_token, refreshToken: action.payload.refresh_token, permissionRequired: false };
         case 'get_permissions':
-            return { accessToken: '', refreshToken: '', permissionRequired: true };
+            return { ...state, accessToken: '', refreshToken: '', permissionRequired: true };
         case 'refresh_token':
             return { ...state, accessToken: action.payload };
         default:
@@ -15,7 +18,18 @@ const authReducer = (state, action) => {
   }
 };
 
-// TODO: refractor this function
+// signin to app
+const signin = dispatch => async () => {
+  try {
+    const response = await signIn("kyle@gmail.com", "pass");
+    dispatch({ type: 'signin', payload: response.data.token });
+    navigate('Signin');
+  } catch (err) {
+    console.log(err)
+  }
+};
+
+// login to spotify
 const login = dispatch => async () => {
   const response = await server.get('/login');
   if (typeof(response.data) == 'string') {
@@ -49,6 +63,6 @@ const refreshAccessToken = dispatch => async (refresh_token) => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { login, checkWebViewResponse, refreshAccessToken },
-  { accessToken: '', refreshToken: '', permissionRequired: false }
+  { signin, login, checkWebViewResponse, refreshAccessToken },
+  { userToken: '', accessToken: '', refreshToken: '', permissionRequired: false }
 );

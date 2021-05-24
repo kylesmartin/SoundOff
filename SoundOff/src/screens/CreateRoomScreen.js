@@ -13,22 +13,14 @@ const CreateRoomScreen = ({navigation}) => {
     
     // useEffect to make sure random key and id is only rendered once upon screen access
     useEffect(() => {
-        
         let key = Math.random().toString().substr(2, 6); // Random number key
-        setRandomKey(key);
-        
         let id = Math.random().toString().substr(2, 6); // Random number key
+        
+        roomApi('/post', key, id)
+
+        setRandomKey(key);
         setRandomId(id);
-
     }, []); 
-
-    useEffect(() => {
-
-        console.log(randomKey)
-        console.log(roomID)
-        roomApi('/post', roomID, randomKey)
-
-    }, [randomKey,roomID])
 
     return (
         <View>
