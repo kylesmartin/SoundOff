@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const gamestate = axios.create({
-    baseURL: 'https://5f4f401e8dde.ngrok.io'
+    baseURL: 'http://620746f9d54c.ngrok.io'
 });
 
 const signIn = async (email, password) => {
