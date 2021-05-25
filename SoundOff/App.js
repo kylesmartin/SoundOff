@@ -20,8 +20,8 @@ import GameStateScreen from './src/screens/GameStateScreen';
 import MenuScreen from './src/screens/MenuScreen';
 import CreateRoomScreen from './src/screens/CreateRoomScreen';
 import JoinRoomScreen from './src/screens/JoinRoomScreen';
-import SignInScreen from './src/screens/SignInScreen';
-import EntryScreen from './src/screens/EntryScreen';
+import SpotifyLoginScreen from './src/screens/SpotifyLoginScreen';
+import SigninScreen from './src/screens/SigninScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as SoundProvider } from './src/context/SoundContext';
@@ -31,8 +31,8 @@ import { setNavigator } from './src/navigationRef';
 const switchNavigator = createSwitchNavigator({
   
   loginFlow: createSwitchNavigator({
-    Entry: EntryScreen,
-    Signin: SignInScreen,
+    Signin: SigninScreen,
+    SpotifyLogin: SpotifyLoginScreen,
     menuFlow: createStackNavigator({
       Menu: MenuScreen,
       CreateRoom: CreateRoomScreen,
@@ -44,7 +44,7 @@ const switchNavigator = createSwitchNavigator({
       }
     })
   },{
-    initialRouteName: 'Entry',
+    initialRouteName: 'Signin',
     defaultNavigationOptions: {
       title: 'Sound Off'
     }
