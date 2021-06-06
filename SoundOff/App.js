@@ -1,10 +1,8 @@
 import React from 'react'; 
-
 import { 
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-
 import { createStackNavigator } from 'react-navigation-stack';
 
 // Screens
@@ -23,13 +21,16 @@ import JoinRoomScreen from './src/screens/JoinRoomScreen';
 import SpotifyLoginScreen from './src/screens/SpotifyLoginScreen';
 import SigninScreen from './src/screens/SigninScreen';
 
+// Context
 import { Provider as AuthProvider } from './src/context/AuthContext';
-import { Provider as SoundProvider } from './src/context/SoundContext';
+import { Provider as GameProvider } from './src/context/GameContext';
+import { Provider as SocketContext } from './src/context/SocketContext';
+
+// Functions
 import { setNavigator } from './src/navigationRef';
 
-
+// Define navigation
 const switchNavigator = createSwitchNavigator({
-  
   loginFlow: createSwitchNavigator({
     Signin: SigninScreen,
     SpotifyLogin: SpotifyLoginScreen,
@@ -49,7 +50,6 @@ const switchNavigator = createSwitchNavigator({
       title: 'Sound Off'
     }
   }),
-
   mainFlow: createSwitchNavigator({
     PlayerWait: PlayerWaitScreen,
     CategorySelect: CategorySelectScreen,
@@ -66,7 +66,6 @@ const switchNavigator = createSwitchNavigator({
       title: 'Sound Off'
     }
   })
-
 },{
   initialRouteName: 'loginFlow',
   defaultNavigationOptions: {
@@ -74,20 +73,21 @@ const switchNavigator = createSwitchNavigator({
   }
 }); 
 
-
+// Create app from navigator
 const App = createAppContainer(switchNavigator);
-
 
 export default () => {
   return (
-    <SoundProvider>
-    <AuthProvider>
-      <App 
-        ref={navigator => {
-          setNavigator(navigator);
-        }}
-      />
-    </AuthProvider>
-    </SoundProvider>
+    <SocketContext>
+      <GameProvider>
+        <AuthProvider>
+          <App 
+            ref={navigator => {
+              setNavigator(navigator);
+            }}
+          />
+        </AuthProvider>
+      </GameProvider>
+    </SocketContext>
   );
 };

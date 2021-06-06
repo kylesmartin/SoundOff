@@ -1,5 +1,6 @@
 import axios from 'axios';
+import { SERVER_URL } from '../config';
 
 export default axios.create({
-    baseURL: 'http://620746f9d54c.ngrok.io'
+    baseURL: SERVER_URL
 });

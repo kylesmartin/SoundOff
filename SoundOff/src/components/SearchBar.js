@@ -2,6 +2,12 @@ import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
+/**
+ * Simple search bar component
+ * @param term Contains the user-inputted term
+ * @param onTermChange Contains the function called when the term is changed
+ * @param onTermSubmit Contains the function called when the term is submitted
+ */
 const SearchBar = ({ term, onTermChange, onTermSubmit }) => {
   return (
     <View style={styles.backgroundStyle}>

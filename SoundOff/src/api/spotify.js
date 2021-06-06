@@ -4,6 +4,11 @@ const spotify = axios.create({
     baseURL: 'https://api.spotify.com/v1'
 });
 
+/**
+ * Called when users search for a new song
+ * @param q Contains the query, usually an artist, a song, or an album
+ * @param accessToken Contains the Spotify access token
+ */
 const search = async (q, accessToken) => {
     const response = await spotify.get(
         '/search',
@@ -19,7 +24,7 @@ const search = async (q, accessToken) => {
             }
         },
     )
-    return response.data
+    return response.data;
 }
 
 export { search }
