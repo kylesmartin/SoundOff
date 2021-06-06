@@ -1,23 +1,20 @@
 import React, { useContext } from 'react'; 
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { Context as SoundContext } from '../context/SoundContext';
 
+/**
+ * Component that displays song search results
+ * @param track Contains the track to be displayed
+ */
 const SongDisplay = ({ track }) => {
 
-    const {
-        setSong
-    } = useContext(SoundContext);
-
-    return (
-        <>
-            <TouchableOpacity onPress={() => { setSong(track) }}>
-                <View style={styles.container}>
-                    <Image style={styles.image} source={{ uri: track.album.images[0].url }} />
-                    <Text>{track.name}</Text>
-                </View>
-            </TouchableOpacity>
-        </>
-    );
+    return (<>
+        <TouchableOpacity onPress={() => { console.log(track) }}>
+            <View style={styles.container}>
+                <Image style={styles.image} source={{ uri: track.album.images[0].url }} />
+                <Text>{track.name}</Text>
+            </View>
+        </TouchableOpacity>
+    </>);
 };
 
 const styles = StyleSheet.create({

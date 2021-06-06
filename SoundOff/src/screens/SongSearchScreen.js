@@ -7,6 +7,7 @@ import SongDisplay from '../components/SongDisplay';
 
 const SongSearchScreen = ({navigation}) => { 
 
+    // Initialize state and search api hook
     const [term, setTerm] = useState('');
     const [searchApi, results, errorMessage] = useResults();
 
@@ -32,9 +33,9 @@ const SongSearchScreen = ({navigation}) => {
                 }}
             />
         </View>
-    )
-}
+    );
+};
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
 
 export default SongSearchScreen;
