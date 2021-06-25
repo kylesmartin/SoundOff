@@ -2,17 +2,26 @@ import React, {useContext, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 import Spacer from '../components/Spacer';
+import { Context as SocketContext } from '../context/SocketContext';
 import {Context as AuthContext} from '../context/AuthContext';
 
-const MenuScreen = ({navigation}) => { 
-    const REFRESH_INTERVAL = 3500000
+const MenuScreen = ({navigation}) => {
+    // Define refresh interval (9/10 of an hour)
+    const REFRESH_INTERVAL = 3600000 * (9/10)
     
     const {
-        state: {refreshToken},
+        setSocket
+    } = useContext(SocketContext);
+
+    // Initialize context
+    const {
+        state: {refreshToken, userToken},
         refreshAccessToken
     } = useContext(AuthContext);
 
+    // Refresh access token every 9/10 of an hour
     useEffect(() => {
+        setSocket(userToken);
         setInterval(() => {
             refreshAccessToken(refreshToken)
         }, REFRESH_INTERVAL);
@@ -21,7 +30,6 @@ const MenuScreen = ({navigation}) => {
     return (
         <View>
             <Text style={styles.header} h2>Main Menu</Text> 
-            
             <View>
                 <Spacer/>
                 <Button 
@@ -41,18 +49,16 @@ const MenuScreen = ({navigation}) => {
                 <Spacer/>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
-
     header: {
         marginTop: 100,
         fontSize: 30,
         justifyContent: "center",
         textAlign: 'center'
     }
-
-})
+});
 
 export default MenuScreen;

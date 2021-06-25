@@ -1,2 +1,2 @@
-export const SOCKET_URL = 'http://4a2a4e6e2d2e.ngrok.io'; // 8080
-export const SERVER_URL = 'http://36e62b7c38f4.ngrok.io'; // 8888
+export const SOCKET_URL = 'http://a5da6c81ec1a.ngrok.io'; // 8080
+export const SERVER_URL = 'http://c01f5bb1c275.ngrok.io'; // 8888

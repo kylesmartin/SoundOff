@@ -1,10 +1,8 @@
 import React from 'react'; 
-
 import { 
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-
 import { createStackNavigator } from 'react-navigation-stack';
 
 // Screens
@@ -20,17 +18,22 @@ import GameStateScreen from './src/screens/GameStateScreen';
 import MenuScreen from './src/screens/MenuScreen';
 import CreateRoomScreen from './src/screens/CreateRoomScreen';
 import JoinRoomScreen from './src/screens/JoinRoomScreen';
+import SpotifyLoginScreen from './src/screens/SpotifyLoginScreen';
 import SignInScreen from './src/screens/SignInScreen';
 
+// Context
 import { Provider as AuthProvider } from './src/context/AuthContext';
-import { Context as AuthContext } from './src/context/AuthContext';
+import { Provider as GameProvider } from './src/context/GameContext';
+import { Provider as SocketContext } from './src/context/SocketContext';
+
+// Functions
 import { setNavigator } from './src/navigationRef';
 
-
+// Define navigation
 const switchNavigator = createSwitchNavigator({
-  
   loginFlow: createSwitchNavigator({
     Signin: SignInScreen,
+    SpotifyLogin: SpotifyLoginScreen,
     menuFlow: createStackNavigator({
       Menu: MenuScreen,
       CreateRoom: CreateRoomScreen,
@@ -47,7 +50,6 @@ const switchNavigator = createSwitchNavigator({
       title: 'Sound Off'
     }
   }),
-
   mainFlow: createSwitchNavigator({
     PlayerWait: PlayerWaitScreen,
     CategorySelect: CategorySelectScreen,
@@ -64,7 +66,6 @@ const switchNavigator = createSwitchNavigator({
       title: 'Sound Off'
     }
   })
-
 },{
   initialRouteName: 'loginFlow',
   defaultNavigationOptions: {
@@ -72,18 +73,21 @@ const switchNavigator = createSwitchNavigator({
   }
 }); 
 
-
+// Create app from navigator
 const App = createAppContainer(switchNavigator);
-
 
 export default () => {
   return (
-    <AuthProvider>
-      <App 
-        ref={navigator => {
-          setNavigator(navigator);
-        }}
-      />
-    </AuthProvider>
+    <SocketContext>
+      <GameProvider>
+        <AuthProvider>
+          <App 
+            ref={navigator => {
+              setNavigator(navigator);
+            }}
+          />
+        </AuthProvider>
+      </GameProvider>
+    </SocketContext>
   );
 };

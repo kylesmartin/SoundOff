@@ -1,29 +1,20 @@
-import React from 'react'; 
-import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
-import { Audio } from 'expo-av';
+import React, { useContext } from 'react'; 
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 
+/**
+ * Component that displays song search results
+ * @param track Contains the track to be displayed
+ */
 const SongDisplay = ({ track }) => {
-    console.log(track.preview_url)
-    return (
-        <>
-        {track.preview_url == null
-            ? null
-            : <TouchableOpacity onPress={async () => {
-                url = track.preview_url
-                const { sound } = await Audio.Sound.createAsync(
-                    { uri: url },
-                    { shouldPlay: true }
-                );
-                await sound.playAsync(); 
-            }}>
-                <View style={styles.container}>
-                    <Image style={styles.image} source={{ uri: track.album.images[0].url }} />
-                    <Text>{track.name}</Text>
-                </View>
-            </TouchableOpacity>
-        }
-        </>
-    );
+
+    return (<>
+        <TouchableOpacity onPress={() => { console.log(track) }}>
+            <View style={styles.container}>
+                <Image style={styles.image} source={{ uri: track.album.images[0].url }} />
+                <Text>{track.name}</Text>
+            </View>
+        </TouchableOpacity>
+    </>);
 };
 
 const styles = StyleSheet.create({
