@@ -6,6 +6,10 @@ import { Context as SocketContext } from '../context/SocketContext';
 import { Context as GameContext } from '../context/GameContext';
 
 const CreateRoomScreen = ({navigation}) => { 
+    
+    // Player names
+    const [playerNames, setPlayerNames] = useState([])
+    
     // Initialize context
     const {
         state: {socket},
@@ -26,22 +30,28 @@ const CreateRoomScreen = ({navigation}) => {
         socket.emit('hostCreateNewGame');
         // Subscribe to socket event
         socket.on('newGameCreated', handleCreateGame);
+        socket.on('playerJoinedRoom', addPlayerName)
         return () => {
             // Before the component is destroyed
             // Unbind all event handlers used in this component
             socket.off('newGameCreated', handleCreateGame);
           };
-    }, [socket, handleCreateGame]); 
+    }, [socket, handleCreateGame, addPlayerName]); 
+
+    const addPlayerName = useCallback((newPlayerInfo) => {
+        setPlayerNames([...playerNames, newPlayerInfo.playerName])
+    }, [playerNames]);
 
     return (
         <View>
-            <Text style={styles.header} h2>Game ID is {gameId}</Text>
-            <Text style={styles.roomKey}> Socket ID is: {socketId}</Text>
+            <Text style={styles.header} h2>Game ID is {gameId}</Text> 
+            <Text style={styles.roomKey}>Socket ID is {socketId}</Text>
             <Spacer/>
             <Button 
-                title="Begin game"
-                onPress={() => navigation.navigate('Menu')}
+                    title="Begin game"
+                    onPress={() => handleCreateGame}
             />
+            <Text style={styles.header}> {playerNames}</Text>
         </View>
     );
 };

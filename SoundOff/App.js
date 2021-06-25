@@ -19,7 +19,7 @@ import MenuScreen from './src/screens/MenuScreen';
 import CreateRoomScreen from './src/screens/CreateRoomScreen';
 import JoinRoomScreen from './src/screens/JoinRoomScreen';
 import SpotifyLoginScreen from './src/screens/SpotifyLoginScreen';
-import SigninScreen from './src/screens/SigninScreen';
+import SignInScreen from './src/screens/SignInScreen';
 
 // Context
 import { Provider as AuthProvider } from './src/context/AuthContext';
@@ -32,7 +32,7 @@ import { setNavigator } from './src/navigationRef';
 // Define navigation
 const switchNavigator = createSwitchNavigator({
   loginFlow: createSwitchNavigator({
-    Signin: SigninScreen,
+    Signin: SignInScreen,
     SpotifyLogin: SpotifyLoginScreen,
     menuFlow: createStackNavigator({
       Menu: MenuScreen,

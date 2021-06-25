@@ -2,7 +2,8 @@ import React, {useContext, useEffect} from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 
-const SigninScreen = ({navigation}) => { 
+const SignInScreen = ({navigation}) => { 
+
     // Initialize context
     const {
         signin
@@ -10,7 +11,9 @@ const SigninScreen = ({navigation}) => {
 
     // Sign in immediately (and once)
     useEffect(() => {
-        signin("kyle@gmail.com", "pass");
+      
+        signin("test@test.com", "mypassword");
+
     }, []);
 
     return (
@@ -21,4 +24,5 @@ const SigninScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({});
 
-export default SigninScreen;
+
+export default SignInScreen;
