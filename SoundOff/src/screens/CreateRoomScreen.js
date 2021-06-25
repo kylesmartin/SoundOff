@@ -22,6 +22,8 @@ const CreateRoomScreen = ({navigation}) => {
 
     }, []); 
 
+    const [playerNames, setPlayerNames] = useState([])
+
     useEffect(() => {
 
         console.log(randomKey)
@@ -29,6 +31,13 @@ const CreateRoomScreen = ({navigation}) => {
         roomApi('/post', roomID, randomKey)
 
     }, [randomKey,roomID])
+
+    const addPlayerName = useCallback((newPlayerInfo) => {
+
+        setPlayerNames([...playerNames, newPlayerInfo.playerName])
+    }, [playerNames]);
+
+    socket.on('playerJoinedRoom', addPlayerName)
 
     return (
         <View>
@@ -39,6 +48,7 @@ const CreateRoomScreen = ({navigation}) => {
                     title="Begin game"
                     onPress={() => navigation.navigate('Menu')}
             />
+            <Text style={styles.header}> {playerNames}</Text>
         </View>
     )  
 }

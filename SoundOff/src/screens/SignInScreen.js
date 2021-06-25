@@ -11,7 +11,11 @@ const SignInScreen = ({navigation}) => {
     } = useContext(AuthContext);
 
     useEffect(() => {
+<<<<<<< Updated upstream
         login();
+=======
+        signin("test@test.com", "mypassword");
+>>>>>>> Stashed changes
     }, []);
 
     return (
