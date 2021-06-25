@@ -3,6 +3,7 @@ import {Text, StyleSheet} from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 
 const SignInScreen = ({navigation}) => { 
+
     // Initialize context
     const {
         signin
@@ -10,7 +11,9 @@ const SignInScreen = ({navigation}) => {
 
     // Sign in immediately (and once)
     useEffect(() => {
+      
         signin("test@test.com", "mypassword");
+
     }, []);
 
     return (
@@ -20,5 +23,6 @@ const SignInScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({});
+
 
 export default SignInScreen;
