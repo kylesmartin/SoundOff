@@ -17,12 +17,24 @@ const CreateRoomScreen = ({navigation}) => {
 
     const {
         state: {gameId, socketId},
-        setIds
+        setGameId,
+        setSocketId
     } = useContext(GameContext);
 
     // Sets ids when new game is created
     const handleCreateGame = useCallback((msg) => {
-        setIds(msg);
+        setGameId(msg.gameId)
+        setSocketId(msg.mySocketId);
+    }, []);
+
+    // Adds new player names to list
+    const addPlayerName = useCallback((newPlayerInfo) => {
+        setPlayerNames([...playerNames, newPlayerInfo.playerName])
+    }, [playerNames]);
+
+    // Navigates to song search screen
+    const handleGameStart = useCallback((msg) => {
+        navigation.navigate('SongSearch')
     }, []);
 
     useEffect(() => {
@@ -30,17 +42,16 @@ const CreateRoomScreen = ({navigation}) => {
         socket.emit('hostCreateNewGame');
         // Subscribe to socket event
         socket.on('newGameCreated', handleCreateGame);
-        socket.on('playerJoinedRoom', addPlayerName)
+        socket.on('playerJoinedRoom', addPlayerName);
+        socket.on('gameStarted', handleGameStart);
         return () => {
             // Before the component is destroyed
             // Unbind all event handlers used in this component
             socket.off('newGameCreated', handleCreateGame);
+            socket.off('playerJoinedRoom', addPlayerName);
+            socket.off('gameStarted', handleGameStart);
           };
-    }, [socket, handleCreateGame, addPlayerName]); 
-
-    const addPlayerName = useCallback((newPlayerInfo) => {
-        setPlayerNames([...playerNames, newPlayerInfo.playerName])
-    }, [playerNames]);
+    }, []); 
 
     return (
         <View>
@@ -49,7 +60,7 @@ const CreateRoomScreen = ({navigation}) => {
             <Spacer/>
             <Button 
                     title="Begin game"
-                    onPress={() => handleCreateGame}
+                    onPress={() => socket.emit('startGame', {gameId})}
             />
             <Text style={styles.header}> {playerNames}</Text>
         </View>

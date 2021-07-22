@@ -1,50 +1,70 @@
-import React, {useState, useContext} from 'react'; 
+import React, {useEffect, useContext, useCallback} from 'react'; 
 import {Text, View, StyleSheet} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { Context as SocketContext } from '../context/SocketContext';
+import { Context as GameContext } from '../context/GameContext';
 
 const JoinRoomScreen = ({navigation}) => { 
 
     // State to keep track of user key input
-    const [roomKey, setRoomKey] = useState('');
-    const [socketID, setSocketID] = useState('')
-
+    const {
+        state: {gameId, socketId},
+        setSocketId,
+        setGameId
+    } = useContext(GameContext);
+    
     // Initialize socket context 
     const {
         state: {socket},
     } = useContext(SocketContext);
 
-    const handleJoinGame = (roomKey) => {
+    // Navigates to song search screen
+    const handleGameStart = useCallback((msg) => {
+        navigation.navigate('SongSearch')
+    }, []);
+
+    const handleJoinGame = useCallback((response) => {
+        setGameId(response.gameId)
+        setSocketId(response.mySocketId)
+    }, []);
+
+    useEffect(() => {
+        socket.on('gameStarted', handleGameStart);
+        socket.on('playerJoinedRoom', handleJoinGame);
+        return () => {
+            // Before the component is destroyed
+            // Unbind all event handlers used in this component
+            socket.off('gameStarted', handleGameStart);
+            socket.off('playerJoinedRoom', handleJoinGame);
+        };
+    }, []);
+
+    const joinGame = (myGameId) => {
         // Set player data to send to server
-        const data = {playerName: 'Srujan', gameId: roomKey};
+        const data = {playerName: 'Srujan', gameId: myGameId};
         // Emit player join game event
         socket.emit('playerJoinGame', data);
-        // On receiving the joined response, navigate to menu.
-        socket.on('playerJoinedRoom', (response) => {
-        setSocketID(response.mySocketId)    
-        });
-
     };
 
     return (
         <View style = {{marginTop : 100}}>
             <Spacer/>
             <Input 
-                label="Room Key" 
-                value={roomKey}
-                onChangeText={setRoomKey}
+                label="Game Id" 
+                value={gameId == null ? gameId : gameId.toString()}
+                onChangeText={setGameId}
                 autoCapitalize = "none"
                 autoCorrect = {false}
             />
             <Spacer/>
             <Button 
                 title="Join!"
-                onPress={() => handleJoinGame(roomKey)}
+                onPress={() => joinGame(gameId)}
             />
             <Spacer/>
-            <Text>Your room key is: {roomKey}</Text>
-            <Text>The socket ID key is: {socketID}</Text>
+            <Text>Your Game ID is: {gameId}</Text>
+            <Text>The Socket ID is: {socketId}</Text>
         </View>
     );
 };

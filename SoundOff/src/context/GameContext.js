@@ -7,23 +7,33 @@ import createDataContext from './createDataContext';
  */
 const gameReducer = (state, action) => {
     switch (action.type) {
-        case 'set_ids':
-            return {...state, gameId: action.payload.gameId, socketId: action.payload.mySocketId};
+        case 'set_game_id':
+            return {...state, gameId: action.payload};
+        case 'set_socket_id':
+            return {...state, socketId: action.payload};
         default:
             return state;
     }
 };
 
 /**
- * Sets the current game id and socket id the client is connected to
- * @param payload Contains the game id and socket id
+ * Sets the current game id
+ * @param gameId Contains the game id
  */
-const setIds = dispatch => (payload) => {
-    dispatch({ type: 'set_ids', payload });
+const setGameId = dispatch => (gameId) => {
+    dispatch({ type: 'set_game_id', payload: gameId });
+}
+
+/**
+ * Sets the current socket id
+ * @param socketId Contains the socket id
+ */
+ const setSocketId = dispatch => (socketId) => {
+    dispatch({ type: 'set_socket_id', payload: socketId });
 }
 
 export const { Provider, Context } = createDataContext(
     gameReducer,
-    { setIds },
+    { setGameId, setSocketId },
     { gameId: null, socketId: '' }
 );

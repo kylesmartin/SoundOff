@@ -12,7 +12,9 @@ const SignInScreen = ({navigation}) => {
     // Sign in immediately (and once)
     useEffect(() => {
       
-        signin("test@test.com", "mypassword");
+        // Srujan's: test@test.com, mypassword
+        // Kyle's: kyle@gmail.com, pass
+        signin("kyle@gmail.com", "pass");
 
     }, []);
 
