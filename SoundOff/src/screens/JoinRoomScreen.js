@@ -21,7 +21,7 @@ const JoinRoomScreen = ({navigation}) => {
 
     // Navigates to song search screen
     const handleGameStart = useCallback((msg) => {
-        navigation.navigate('SongSearch')
+        navigation.navigate('PlayerWait')
     }, []);
 
     const handleJoinGame = useCallback((response) => {

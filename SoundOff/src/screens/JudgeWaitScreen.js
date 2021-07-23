@@ -4,7 +4,7 @@ import {Text, View, StyleSheet} from 'react-native';
 const JudgeWaitScreen = ({navigation}) => { 
     return (
         <View>
-            <Text>JudgeWaitScreen</Text>
+            <Text>Wait for players to submit songs...</Text>
         </View>
     );
 };
