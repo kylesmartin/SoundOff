@@ -34,7 +34,7 @@ const CreateRoomScreen = ({navigation}) => {
 
     // Navigates to song search screen
     const handleGameStart = useCallback((msg) => {
-        navigation.navigate('SongSearch')
+        navigation.navigate('CategorySelect')
     }, []);
 
     useEffect(() => {

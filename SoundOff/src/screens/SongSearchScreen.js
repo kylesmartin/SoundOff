@@ -14,6 +14,7 @@ const SongSearchScreen = ({navigation}) => {
     return (
         <View>
             <Spacer/>
+            <Text>{navigation.getParam('category')}</Text>
             <SearchBar
                 term={term}
                 onTermChange={setTerm}
