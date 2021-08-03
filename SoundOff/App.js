@@ -6,10 +6,9 @@ import {
 import { createStackNavigator } from 'react-navigation-stack';
 
 // Screens
-import PlayerWaitScreen from './src/screens/PlayerWaitScreen';
+import WaitScreen from './src/screens/WaitScreen';
 import CategorySelectScreen from './src/screens/CategorySelectScreen';
 import CountDownScreen from './src/screens/CountDownScreen';
-import JudgeWaitScreen from './src/screens/JudgeWaitScreen';
 import SongSearchScreen from './src/screens/SongSearchScreen';
 import JudgeReviewScreen from './src/screens/JudgeReviewScreen';
 import SongShowScreen from './src/screens/SongShowScreen';
@@ -51,17 +50,16 @@ const switchNavigator = createSwitchNavigator({
     }
   }),
   mainFlow: createSwitchNavigator({
-    PlayerWait: PlayerWaitScreen,
+    Wait: WaitScreen,
     CategorySelect: CategorySelectScreen,
     CountDown: CountDownScreen, 
-    JudgeWait: JudgeWaitScreen, 
     SongSearch: SongSearchScreen, 
     JudgeReview: JudgeReviewScreen,
     SongShow: SongShowScreen,
     Voting: VotingScreen,
     GameState: GameStateScreen
   },{
-    initialRouteName: 'PlayerWait',
+    initialRouteName: 'Wait',
     defaultNavigationOptions: {
       title: 'Sound Off'
     }

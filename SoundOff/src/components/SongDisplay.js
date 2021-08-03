@@ -1,26 +1,14 @@
 import React, { useContext, useCallback } from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { Context as SocketContext } from '../context/SocketContext';
-import { Context as GameContext } from '../context/GameContext';
 
 /**
  * Component that displays song search results
  * @param track Contains the track to be displayed
  */
-const SongDisplay = ({ track }) => {
-
-    const {
-        state: {socket},
-    } = useContext(SocketContext);
-
-    const {
-        state: {gameId, socketId},
-        setGameId,
-        setSocketId
-    } = useContext(GameContext);
+const SongDisplay = ({ track, pressFn }) => {
 
     return (<>
-        <TouchableOpacity onPress={() => { console.log(track) }}>
+        <TouchableOpacity onPress={pressFn}>
             <View style={styles.container}>
                 <Image style={styles.image} source={{ uri: track.album.images[0].url }} />
                 <Text>{track.name}</Text>

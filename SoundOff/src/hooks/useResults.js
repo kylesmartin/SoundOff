@@ -20,6 +20,7 @@ export default () => {
       const response = await search(searchTerm, accessToken);
       setResults(response.tracks);
     } catch (err) {
+      console.log(err)
       setErrorMessage('Something went wrong');
     }
   };

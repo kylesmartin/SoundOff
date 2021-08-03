@@ -19,7 +19,7 @@ const CategorySelectScreen = ({navigation}) => {
 
     const submitCategory = (category) => {
         socket.emit('categorySubmitted', {category, socketId, gameId})
-        navigation.navigate('JudgeWait');
+        navigation.navigate('Wait', {type: 'Judge', msg: 'Wait for players to submit songs...'});
     };
 
     return (

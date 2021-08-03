@@ -27,4 +27,23 @@ const search = async (q, accessToken) => {
     return response.data;
 }
 
-export { search }
+/**
+ * Called when users search for a song by its id
+ * @param id Contains the song id
+ * @param accessToken Contains the Spotify access token
+ */
+ const searchById = async (id, accessToken) => {
+    const response = await spotify.get(
+        `/tracks/${id}`,
+        { 
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            }
+        }
+    )
+    return response.data;
+}
+
+export { search, searchById }
